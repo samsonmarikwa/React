@@ -8,6 +8,8 @@ function App() {
     { title: 'Race on moo moo farm', id: 3 },
   ]);
 
+  const [showevents, setShowevents] = useState(true);
+
   const handleClick = (id) => {
     console.log(id);
     // setEvents(events.filter((event) => event.id !== id));
@@ -18,16 +20,30 @@ function App() {
     setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
   };
 
+  console.log(showevents);
+
   return (
     <div className='App'>
-      {events.map((event) => {
-        return (
-          <dir key={event.id}>
-            <h2>{event.title}</h2>
-            <button onClick={() => handleClick(event.id)}>delete event</button>
-          </dir>
-        );
-      })}
+      {/* Logical and - will execute the statement on the right side if showevents evalutes to true*/}
+      {showevents && (
+        <button onClick={() => setShowevents(false)}>Hide Events</button>
+      )}
+
+      {!showevents && (
+        <button onClick={() => setShowevents(true)}>Show Events</button>
+      )}
+
+      {showevents &&
+        events.map((event) => {
+          return (
+            <dir key={event.id}>
+              <h2>{event.title}</h2>
+              <button onClick={() => handleClick(event.id)}>
+                delete event
+              </button>
+            </dir>
+          );
+        })}
     </div>
   );
 }
