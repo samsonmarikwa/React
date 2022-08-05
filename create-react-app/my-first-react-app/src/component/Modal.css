@@ -21,3 +21,9 @@
    padding-bottom: 10px;
    color: rgb(238, 154, 237);
 }
+
+.modal .sales-btn {
+   border: 4px solid #333;
+   font-size: 18px;
+   text-transform: uppercase;
+}
