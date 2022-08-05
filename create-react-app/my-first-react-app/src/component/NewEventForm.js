@@ -5,12 +5,14 @@ import './NewEventForm.css';
 export default function NewEventForm({ addEvent }) {
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
+  const [location, setLocation] = useState('manchester');
   // const title = useRef(); // allows us to associate with a DOM element
   // const date = useRef();
 
   const resetForm = () => {
     setTitle('');
     setDate('');
+    setLocation('manchester');
     // title.current.value = '';
     // date.current.value = '';
   };
@@ -26,6 +28,7 @@ export default function NewEventForm({ addEvent }) {
     const event = {
       title: title,
       date: date,
+      location: location,
       id: Math.floor(Math.random() * 10000),
     };
     addEvent(event);
@@ -51,6 +54,14 @@ export default function NewEventForm({ addEvent }) {
           value={date}
           // ref={date}
         />
+      </label>
+      <label>
+        <span>Event location:</span>
+        <select onChange={(e) => setLocation(e.target.value)}>
+          <option value='manchester'>Manchester</option>
+          <option value='london'>London</option>
+          <option value='cardiff'>Cardiff</option>
+        </select>
       </label>
       <button>Submit</button>
     </form>
