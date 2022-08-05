@@ -1,0 +1,13 @@
+/* module.css files are used to target a component. The styles are not applied globally */
+.card {
+   border: 1px solid #eee;
+   box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.05);
+   padding: 10px;
+   max-width: 400px;
+   margin: 20px auto;
+   border-radius: 4px;
+}
+
+.card button {
+   background-color: #555;
+}
