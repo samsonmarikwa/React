@@ -3,8 +3,10 @@ import { useState } from 'react';
 import Title from './component/Title';
 import Modal from './component/Modal';
 import EventList from './component/EventList';
+import NewEventForm from './component/NewEventForm';
 
 function App() {
+  const [addEvent, setAddEvent] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [events, setEvents] = useState([
     { title: "Mario's birthday bash", id: 1 },
@@ -12,7 +14,7 @@ function App() {
     { title: 'Race on moo moo farm', id: 3 },
   ]);
 
-  const [showevents, setShowevents] = useState(true);
+  const [showEvents, setShowEvents] = useState(true);
 
   const handleClick = (id) => {
     // setEvents(events.filter((event) => event.id !== id));
@@ -29,21 +31,23 @@ function App() {
     setShowModal(false);
   };
 
-  console.log(showModal);
+  const closeAddEvent = () => {
+    setAddEvent(false);
+  };
 
   return (
     <div className='App'>
       <Title title='Events In Your Area' subtitle={subtitle} />
       <br />
       {/* Logical and - will execute the statement on the right side if showevents evalutes to true*/}
-      {showevents && (
-        <button onClick={() => setShowevents(false)}>Hide Events</button>
+      {showEvents && (
+        <button onClick={() => setShowEvents(false)}>Hide Events</button>
       )}
 
-      {!showevents && (
-        <button onClick={() => setShowevents(true)}>Show Events</button>
+      {!showEvents && (
+        <button onClick={() => setShowEvents(true)}>Show Events</button>
       )}
-      {showevents && <EventList events={events} handleClick={handleClick} />}
+      {showEvents && <EventList events={events} handleClick={handleClick} />}
 
       {/* <Modal>
         <h2>10% Off Coupon Code!!</h2>
@@ -60,13 +64,21 @@ function App() {
           </p>
         </Modal>
       )}
-      <br />
-      <br />
-      {!showModal && (
-        <button onClick={() => setShowModal(true)}>
-          Show Terms and Conditions
-        </button>
+      {addEvent && (
+        <Modal handleClose={closeAddEvent} isSalesModal={true}>
+          <NewEventForm />
+        </Modal>
       )}
+      <div>
+        <button onClick={() => setAddEvent(true)}>Add New Event</button>
+      </div>
+      <div>
+        {!showModal && (
+          <button onClick={() => setShowModal(true)}>
+            Show Terms and Conditions
+          </button>
+        )}
+      </div>
     </div>
   );
 }
