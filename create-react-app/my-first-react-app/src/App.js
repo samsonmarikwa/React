@@ -6,13 +6,9 @@ import EventList from './component/EventList';
 import NewEventForm from './component/NewEventForm';
 
 function App() {
-  const [addEvent, setAddEvent] = useState(false);
+  const [showAddEventForm, setShowAddEventForm] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [events, setEvents] = useState([
-    { title: "Mario's birthday bash", id: 1 },
-    { title: "Bowser's live stream", id: 2 },
-    { title: 'Race on moo moo farm', id: 3 },
-  ]);
+  const [events, setEvents] = useState([]);
 
   const [showEvents, setShowEvents] = useState(true);
 
@@ -32,7 +28,14 @@ function App() {
   };
 
   const closeAddEvent = () => {
-    setAddEvent(false);
+    setShowAddEventForm(false);
+  };
+
+  const addEvent = (event) => {
+    setEvents((prevEvents) => {
+      return [...prevEvents, event];
+    });
+    closeAddEvent();
   };
 
   return (
@@ -64,13 +67,13 @@ function App() {
           </p>
         </Modal>
       )}
-      {addEvent && (
+      {showAddEventForm && (
         <Modal handleClose={closeAddEvent} isSalesModal={true}>
-          <NewEventForm />
+          <NewEventForm addEvent={addEvent} />
         </Modal>
       )}
       <div>
-        <button onClick={() => setAddEvent(true)}>Add New Event</button>
+        <button onClick={() => setShowAddEventForm(true)}>Add New Event</button>
       </div>
       <div>
         {!showModal && (
