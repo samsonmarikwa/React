@@ -5,6 +5,7 @@ import './App.css';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Article from './pages/Article';
 
 function App() {
   return (
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route path='/contact'>
             <Contact />
+          </Route>
+          <Route path='/articles/:id'>
+            <Article />
           </Route>
         </Switch>
       </BrowserRouter>
