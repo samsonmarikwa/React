@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom';
 import './RecipeList.css';
 
 export default function RecipeList({ recipes }) {
-  return (
+  return recipes.length === 0 ? (
+    <div className='error'>No recipes to load...</div>
+  ) : (
     <div className='recipe-list'>
       {recipes.map((recipe) => (
         <div key={recipe.id} className='card'>
