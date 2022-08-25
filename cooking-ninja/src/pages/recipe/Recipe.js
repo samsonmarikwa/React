@@ -17,11 +17,12 @@ export default function Recipe() {
   useEffect(() => {
     setIsPending(true);
 
-    projectFirestore
+    // we have to unscribe from the listener when we navigate away from the page
+    // to prevent leakage of resources and errors. We return the function to cleanup
+    const unsub = projectFirestore
       .collection('recipes')
       .doc(id)
-      .get()
-      .then((doc) => {
+      .onSnapshot((doc) => {
         if (doc.exists) {
           setIsPending(false);
           setRecipe(doc.data());
@@ -30,6 +31,10 @@ export default function Recipe() {
           setError('Could not find that recipe');
         }
       });
+
+    // This function will be fired when we navigate to another component which acts
+    // as a cleanup function. So we are no longer listening to document changes.
+    return () => unsub();
   }, [id]);
 
   const { mode } = useTheme();
